@@ -1,2 +1,2 @@
 # Data-Extraction-Using-SQL
-Financial Big Data Lab
+This repository stores codes for extracting data from financial databases on the virtual machine of the lab
