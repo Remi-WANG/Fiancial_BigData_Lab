@@ -330,20 +330,28 @@ def rebalance(weights, n_reb):
 
     return weights
 
-def cal_portfolio_return(weights, return_frame, strategy, output = False):
+def cal_portfolio_return(weights, return_frame, strategy, log = False, output = False, ):
     '''
-    weights: a dataframe storing daily portofolio weights
-    return_frame: a dataframe storing daily log returns of all the assets 
+    weights: a dataframe saving daily portofolio weights
+    return_frame: a dataframe of daily returns of all the assets, should be log return if log = True
     strategy: a str, name of current strategy
     output: a boolean, whether to output the result as a csv file
     
-    generate the daily return dataframe of a portofolio given the weights
+    generate the daily log return dataframe of a portofolio given the weights
     according to modern portfolio theory(MPT) by Markowitz, the portofolio return
-    is calculated as a weighted sum of the individual assets' returns.
+    is calculated as the weighted sum of the individual assets' simple returns.
     '''
-    p_return_frame = pd.DataFrame([np.dot(weights.iloc[date], return_frame.iloc[date]) for date in range(len(return_frame))],\
+
+    if log:
+        # p_12s means from portofolio's Log return to Simple return 
+    	p_l2s = np.exp(return_frame)-1
+    	p_return_frame = pd.DataFrame([np.dot(weights.iloc[date], p_l2s.iloc[date]) for date in range(len(p_l2s))],\
+                       index=return_frame.index, columns=['portfolio_return'])
+    else :
+    	p_return_frame = pd.DataFrame([np.dot(weights.iloc[date], return_frame.iloc[date]) for date in range(len(return_frame))],\
                        index=return_frame.index, columns=['portfolio_return'])
     
+    p_return_frame = np.log1p(p_return_frame) 
     if output:
         p_return_frame.to_csv(strategy + '_return'+ '.csv')
     return p_return_frame
