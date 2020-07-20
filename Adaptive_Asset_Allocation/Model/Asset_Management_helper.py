@@ -385,9 +385,12 @@ def cal_positive_rolling_years(portfolio_return):
     
     get the proportion of positive rolling years (252 trading days per year)
     '''
-    p_rolling_return = pd.DataFrame()
-    p_rolling_return['rolling_return'] = portfolio_return['portfolio_return'].rolling(252).sum().dropna()
-    positive_rolling_year = len(p_rolling_return.loc[p_rolling_return['rolling_return'] >= 0]) / len(p_rolling_return)
+    if len(portfolio_return) < 252:
+        positive_rolling_year = 'NA'
+    else:
+        p_rolling_return = pd.DataFrame()
+        p_rolling_return['rolling_return'] = portfolio_return['portfolio_return'].rolling(252).sum().dropna()
+        positive_rolling_year = len(p_rolling_return.loc[p_rolling_return['rolling_return'] >= 0]) / len(p_rolling_return)
     
     print('positive rolling years is {}'.format(positive_rolling_year))
     return positive_rolling_year
