@@ -228,7 +228,7 @@ class MinVarMomentum:
         '''
         num_assets = width
         args = (cov_ret)
-        # constraaint: sum of weights - 1 = 0 / non top assets have no weights
+        # constraints: sum of weights - 1 = 0 / non top assets have no weights
         constraints = ([{'type': 'eq', 'fun': lambda x: np.sum(x) - 1},{'type': 'eq', 'fun': lambda x: x[drop]}])   
         bound = (0.0,1.0)
         bounds = tuple(bound for asset in range(num_assets))
@@ -254,7 +254,7 @@ class MinVarMomentum:
         Build up the optimal weight dataframe
         '''
         
-        # globle parameters
+        # global variables
         length = self.length
         width = self.width
         weights = pd.DataFrame(np.zeros((length, width)), index = self.prices.index, columns = self.prices.columns)
