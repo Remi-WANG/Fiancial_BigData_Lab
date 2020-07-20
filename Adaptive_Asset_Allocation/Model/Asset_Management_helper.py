@@ -183,7 +183,7 @@ class RiskParMomentum:
 
         if output:
             rebalance_times =self.length // self.n_reb
-            short_weights = weights.iloc[[i for i in range(0,(rebalance_times +1) * self.n_reb,self.n_reb)]]
+            short_weights = weights.iloc[[i for i in range(0, rebalance_times * self.n_reb,self.n_reb)]]
             short_weights.to_csv('RiskParMomentum_weights.csv')
 
         return weights
