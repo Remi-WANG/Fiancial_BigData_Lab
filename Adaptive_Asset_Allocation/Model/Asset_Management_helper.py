@@ -99,8 +99,7 @@ class RiskParity:
         weights = rebalance(weights, self.n_reb) 
 
         if output:
-            rebalance_times =self.length // self.n_reb
-            short_weights = weights.iloc[[i for i in range(0,(rebalance_times +1) * self.n_reb,self.n_reb)]]
+            short_weights = weights.iloc[[i for i in range(0, self.length ,self.n_reb)]]
             short_weights.to_csv('RiskParity_weights.csv')
 
         return weights
@@ -135,10 +134,9 @@ class EqualMomentum:
         rankings = self.cal_rankings()
         weights = ntop(rankings, self.n_top)
         weights = rebalance(weights, self.n_reb) 
-
+        
         if output:
-            rebalance_times =self.length // self.n_reb
-            short_weights = weights.iloc[[i for i in range(0, (rebalance_times +1) * self.n_reb,self.n_reb)]]
+            short_weights = weights.iloc[[i for i in range(0, self.length ,self.n_reb)]]
             short_weights.to_csv('EqualMomentum_weights.csv')
 
         return weights
@@ -182,8 +180,7 @@ class RiskParMomentum:
         weights = rebalance(weights, self.n_reb) 
 
         if output:
-            rebalance_times =self.length // self.n_reb
-            short_weights = weights.iloc[[i for i in range(0, rebalance_times * self.n_reb,self.n_reb)]]
+            short_weights = weights.iloc[[i for i in range(0, self.length ,self.n_reb)]]
             short_weights.to_csv('RiskParMomentum_weights.csv')
 
         return weights
@@ -280,10 +277,9 @@ class MinVarMomentum:
 
         weights = weights.fillna(1/width)
         weights = rebalance(weights, self.n_reb) 
-
+        
         if output:
-            rebalance_times =self.length // self.n_reb
-            short_weights = weights.iloc[[i for i in range(0, (rebalance_times +1) * self.n_reb, self.n_reb)]]
+            short_weights = weights.iloc[[i for i in range(0, self.length ,self.n_reb)]]
             short_weights.to_csv('MinVarMomentum_weights.csv')
 
         return weights
