@@ -10,3 +10,4 @@ end_date = "2014-11-30"
 # Talk with Yahoo Api
 panel_data = web.DataReader(ticker_ls, 'yahoo', start_date, end_date)
 
+(pandas_datareader may need to be updated by running: pip install pandas-datareader --upgrade)
